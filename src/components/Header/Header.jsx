@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import List from './List';
-import SwitchButton from './SwitchButton';
+import List from '../List/List';
+import SwitchButton from '../Toggler/SwitchButton';
 
 const Header = () => {
   const [task, setTask] = useState("");

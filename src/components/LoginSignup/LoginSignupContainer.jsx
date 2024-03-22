@@ -1,6 +1,6 @@
 import "./styles.css";
 import styled from "styled-components";
-import AccountBox from "./accountBox/";
+import AccountBox from "./accountBox";
 
 const LoginSignupContainer = styled.div`
   width: 100%;

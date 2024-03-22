@@ -2,15 +2,14 @@ import  { useContext, useState } from "react";
 import {
   BoldLink,
   BoxContainer,
-  FormContainer,
-  Input,
   LineText,
   MutedLink,
   SubmitButton,
 } from "./common";
 import { Marginer } from "../marginer";
 import { AccountContext } from './accountContext';
-import { Box, Button, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
+
 
 
 export function LoginForm() {
@@ -43,11 +42,9 @@ export function LoginForm() {
 
   return (
     <BoxContainer>
-      <form onSubmit={handleSubmit} style={{zIndex:0}}>
+      <form onSubmit={handleSubmit} >
         
           <TextField
-            required
-            placeholder="Username"
             id="username"
             label="Username"
             variant="outlined"
@@ -58,11 +55,9 @@ export function LoginForm() {
             }}
             error={userNameError}
             helperText={userNameError ? "Username is required" : ""}
-            style={{ width: "100%" }}
+            style={{ width: "100%",marginBottom:"0.5rem" }}
           />
           <TextField
-            required
-            placeholder="Password"
             id="password"
             type="password"
             label="Password"
@@ -74,16 +69,8 @@ export function LoginForm() {
             }}
             error={passwordError}
             helperText={passwordError ? "Password is required" : ""}
-            style={{ width: "100%" }}
+            style={{ width: "100%",marginBottom:"0.5rem" }}
           />
-          <Button
-            type="submit"
-            variant="contained"
-            style={{ padding: "1rem 0", width: "100%"}}
-          >
-            Login
-          </Button>
-        
       </form>
       <Marginer direction="vertical" margin={10} />
       <MutedLink href="#">Forget your password?</MutedLink>
@@ -96,6 +83,7 @@ export function LoginForm() {
           Signup
         </BoldLink>
       </LineText>
+      
     </BoxContainer>
   );
 }
