@@ -1,13 +1,15 @@
-import React from "react";
-import './styles/App.css'; 
+// import './styles/App.css'; 
 import Header from "./components/Header"
+import Test from "./components/Test";
+
 
 
 const App = () => {
   return (
     <body>
         {/* Do not remove the main div */}
-        <Header/>
+        {/* <Header/> */}
+        <Test/>
 
     </body>
   )
