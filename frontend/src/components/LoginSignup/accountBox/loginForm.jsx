@@ -43,6 +43,7 @@ export function LoginForm() {
       .then(response => {
         console.log(response);
         console.log(response.data.others._id);
+        sessionStorage.setItem("id",response.data.others._id)
         dispatch(IsLoggedIn(response.data.others._id))
         // toast(response.data.others.username);
         navigate("/todo");
