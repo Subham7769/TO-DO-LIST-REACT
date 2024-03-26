@@ -1,0 +1,161 @@
+
+.heading {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    align-items: center;
+  }
+  
+  .Todoheader {
+    text-align: center;
+  }
+
+  .inputText,
+  .btn {
+    font-size: 1.5rem;
+    padding: 0.5rem 1rem;
+    outline: none;
+    border: none;
+    width: 70%;
+    background-color: transparent;
+    color: var(--input-placeholder);
+  }
+    .inputText {
+    margin-top: 2.5rem;
+  }
+  .btn {
+    width: 20%;
+    border: none;
+    outline: none;
+    border-radius: 0.5rem;
+    background-color: var(--primary-color);
+    color: var(--text-color);
+  }
+  
+  .inputText::placeholder {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--input-placeholder);
+  }
+  
+  .inputText:focus-visible {
+    border-bottom: 1px solid var(--primary-color);
+  }
+
+  
+  .content {
+    position: relative;
+    width: 95%;
+  }
+  
+  .content h1 {
+    font-size: 3rem;
+    color: #fff;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+  }
+  
+  .content h1:nth-child(1) {
+    color: transparent;
+    -webkit-text-stroke: 2px dodgerblue;
+  }
+  
+  .content h1:nth-child(2) {
+    color: dodgerblue;
+    animation: animate 3s ease-in-out infinite;
+  }
+
+  @keyframes animate {
+    0%,
+    100% {
+      clip-path: polygon(
+        0% 45%,
+        16% 44%,
+        33% 50%,
+        54% 60%,
+        70% 61%,
+        84% 59%,
+        100% 52%,
+        100% 100%,
+        0% 100%
+      );
+    }
+  
+    50% {
+      clip-path: polygon(
+        0% 60%,
+        15% 65%,
+        34% 66%,
+        51% 62%,
+        67% 50%,
+        84% 45%,
+        100% 46%,
+        100% 100%,
+        0% 100%
+      );
+    }
+  }
+  
+
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  
+  li {
+    margin-top: 0.8rem;
+    font-size: 1.5rem;
+    border-left: 10px solid var(--primary-color);
+    border-radius: 0.5rem 0rem 0rem 0.5rem;
+    background-color: var(--card-bg-color);
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 230px;
+    gap: 1rem;
+    word-wrap: break-word;
+  }
+  
+  .dltBtn,
+  .updbtn {
+    border: none;
+    outline: none;
+    border-radius: 0.3rem;
+    background-color: tomato;
+    color: var(--text-color);
+    width: fit-content;
+    padding: 0.2rem 0.8rem;
+    font-size: 1.2rem;
+    font-weight: 500;
+    font-size: 0.8rem;
+  }
+  .dltBtn:hover {
+    background-color: rgba(248, 5, 5, 0.979);
+  }
+  .updbtn {
+    background-color: dodgerblue;
+  }
+  .updbtn:hover {
+    background-color: rgb(9, 129, 250);
+  }
+  
+  .listItem {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+  }
+  .listItem >p{
+    font-size: 0.8rem;
+  }
+  .btncont{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }

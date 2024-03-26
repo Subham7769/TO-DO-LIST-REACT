@@ -1,0 +1,44 @@
+
+#switch {
+    height: 0;
+    width: 0;
+    visibility: hidden;
+  }
+  .themeContainer{
+    display: flex;
+  }
+  #switchLabel {
+    cursor: pointer;
+    text-indent: -9999px;
+    width: 3rem;
+    height: 1.5rem;
+    background: black;
+    display: block;
+    border-radius: 100px;
+    position: relative;
+  }
+  
+  #switchLabel:after {
+    content: "";
+    position: absolute;
+    top: 4px;
+    left: 5px;
+    width: 1rem;
+    height: 1rem;
+    background: var(--primary-color);
+    border-radius: 90px;
+    transition: 0.3s;
+  }
+  
+  #switch:checked + #switchLabel {
+    background: #dddddd;
+  }
+  
+  #switch:checked + #switchLabel:after {
+    left: calc(100% - 5px);
+    transform: translateX(-100%);
+  }
+  
+  #switchLabel:active:after {
+    width: 100%;
+  }

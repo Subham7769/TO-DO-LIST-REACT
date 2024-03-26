@@ -1,0 +1,30 @@
+.landingPage {
+    display: flex;
+    align-items: center;
+    padding: 2rem;
+    width: 100vw;
+    height: 90vh;
+    gap: 1rem;
+}
+
+.intro {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    flex: 0.7;
+    flex-direction: column;
+    background-image: url('');
+    background-size: cover;
+    background-position: center;
+}
+
+.lsDiv {
+    flex: 0.3;
+}
+
+.intro>p {
+    font-weight: 600;
+    font-size: 10rem;
+    color: dodgerblue;
+}

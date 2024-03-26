@@ -1,0 +1,36 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900");
+/* theme Switcher */
+:root {
+  --bg-color: white;
+  --text-color: black;
+  --primary-color: dodgerblue;
+  --input-placeholder: gray;
+  --card-bg-color: rgba(30, 143, 255, 0.212);
+}
+
+.light {
+  --bg-color: white;
+  --text-color: black;
+  --primary-color: dodgerblue;
+  --input-placeholder: gray;
+  --card-bg-color: rgba(30, 143, 255, 0.212);
+}
+
+.dark {
+  --bg-color: black;
+  --text-color: white;
+  --primary-color: dodgerblue;
+  --input-placeholder: white;
+  --card-bg-color: rgba(228, 237, 247, 0.212);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
