@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import IsLoggedIn from './Slices/LoginSlice'
+import AuthSliceReducer from "./Slices/AuthSlice";
 
 const store = configureStore({
-    reducer:{
-        isLoggedIn: IsLoggedIn
-    }
+  reducer: {
+    AuthSlice: AuthSliceReducer,
+  },
 });
 
 export default store;

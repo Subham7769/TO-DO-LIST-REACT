@@ -7,18 +7,18 @@ import {
   SubmitButton,
 } from "./common";
 import { Marginer } from "../marginer";
-import { AccountContext } from './accountContext';
+import { AccountContext } from "./accountContext";
 import { TextField } from "@mui/material";
-import axios from "axios"
-import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom'
-import { IsLoggedIn } from  '../../../Redux/Slices/LoginSlice'
-import { useDispatch } from 'react-redux';
+import axios from "axios";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { IsLoggedIn } from "../../../Redux/Slices/AuthSlice";
+import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 
 export function LoginForm() {
   const dispatch = useDispatch();
-  const isLogin = useSelector(state=>state.isLoggedIn)
+  const isLogin = useSelector((state) => state.AuthSlice.loggedIn);
   const { switchToSignup } = useContext(AccountContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -39,13 +39,15 @@ export function LoginForm() {
       setPasswordError(true);
       return;
     }
-    await axios.post("http://localhost:8000/api/v1/login", { email, password })
-      .then(response => {
+    //http://localhost:8000
+    await axios
+      .post("https://tqmdqr-8000.csb.app/api/v1/login", { email, password })
+      .then((response) => {
         console.log(response);
         console.log(response.data.others._id);
-        sessionStorage.setItem("id",response.data.others._id)
-        dispatch(IsLoggedIn(response.data.others._id))
-        // toast(response.data.others.username);
+        sessionStorage.setItem("id", response.data.others._id);
+        dispatch(IsLoggedIn());
+        toast(response.data.others.username);
         navigate("/todo");
         // Reset form
         setEmail("");
@@ -53,14 +55,12 @@ export function LoginForm() {
         setEmailError(false);
         setPasswordError(false);
       })
-      .catch(error => toast(error.response.data.message));
-
+      .catch((error) => toast(error.response.data.message));
   };
 
   return (
     <BoxContainer>
       <form onSubmit={handleSubmit}>
-
         <TextField
           id="email"
           label="email"
@@ -101,7 +101,6 @@ export function LoginForm() {
           Signup
         </BoldLink>
       </LineText>
-
     </BoxContainer>
   );
 }
