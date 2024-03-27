@@ -5,8 +5,8 @@ const List = require("../models/listSchema");
 //create
 router.post("/addTask", async (req, res) => {
   try {
-    const { title, body, email } = req.body;
-    const existingUser = await User.findOne({ email });
+    const { title, body, id } = req.body;
+    const existingUser = await User.findById(id);
     if (existingUser) {
       const list = new List({ title, body, user: existingUser });
       await list.save().then(() => {
@@ -40,11 +40,11 @@ router.delete("/deleteTask/:id", async (req, res) => {
     const { email } = req.body;
     const existingUser = await User.findOneAndUpdate(
       { email },
-      { $pull: { list: req.params.id } }
+      { $pull: { list: req.params.id } },
     );
     if (existingUser) {
       await List.findByIdAndDelete(req.params.id).then(() =>
-        res.status(200).json({ message: "Task Deleted" })
+        res.status(200).json({ message: "Task Deleted" }),
       );
     }
   } catch (error) {
@@ -58,8 +58,7 @@ router.get("/getTask/:id", async (req, res) => {
   if (list.length !== 0) {
     res.status(200).json({ list });
   } else {
-    res.status(200).json({ message:"No Task" });
-    
+    res.status(200).json({ message: "No Task" });
   }
 });
 
