@@ -5,25 +5,18 @@ import { toast } from "react-toastify";
 import axios from "axios";
 
 const TodoHeader = () => {
-  useEffect(() => {
-    const fetchData = async () => {
-      await axios
-        .get(`https://tqmdqr-8000.csb.app/api/v2/getTask/${id}`)
-        .then((response) => console.log(response));
-    };
-    fetchData();
-  }, []);
-
   const id = sessionStorage.getItem("id");
   const [currentIndex, setCurrentIndex] = useState();
+  const [taskList, setTaskList] = useState([]);
+  const [isUpdate, setIsUpdate] = useState(false);
+  const [listUpdate, setListUpdate] = useState(false);
   const [list, setList] = useState({
     title: "",
     body: "",
   });
-  const [taskList, setTaskList] = useState([]);
-  const [isUpdate, setIsUpdate] = useState(false);
 
   const handleSubmit = async (e) => {
+    console.log("===running");
     e.preventDefault();
     if (currentIndex === undefined) {
       if (list.title.trim() === "") {
@@ -67,6 +60,7 @@ const TodoHeader = () => {
       toast("Task updated Successfully");
     }
     setCurrentIndex();
+    setListUpdate(!listUpdate);
   };
 
   function updateTaskEdit(index) {
@@ -78,12 +72,21 @@ const TodoHeader = () => {
     toast("Task Edit");
   }
 
-  function deleteTask(index) {
-    const updateTasks = [...taskList];
-    updateTasks.splice(index, 1);
-    setTaskList(updateTasks);
+  const deleteTask = async (id) => {
+    console.log("before");
+    await axios
+      .delete(`https://tqmdqr-8000.csb.app/api/v2/deleteTask/${id}`, {
+        data: { id: id },
+      })
+      .then((response) => console.log("deleteTask===", response));
+    // const updateTasks = [...taskList];
+    // updateTasks.splice(index, 1);
+    // setTaskList(updateTasks);
+    console.log("after");
+
     toast("Task Deleted Successfully");
-  }
+    setListUpdate(!listUpdate);
+  };
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -91,6 +94,18 @@ const TodoHeader = () => {
       return { ...prev, [name]: value };
     });
   }
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await axios
+        .get(`https://tqmdqr-8000.csb.app/api/v2/getTask/${id}`)
+        .then((response) => {
+          console.log("====response", response);
+          setTaskList(response.data.list);
+        });
+    };
+    fetchData();
+  }, [listUpdate]);
   return (
     <>
       <Header />
@@ -133,14 +148,14 @@ const TodoHeader = () => {
         {taskList.length === 0
           ? ""
           : taskList.map((item, index) => (
-              <li key={index} className="listItem" id={index}>
+              <li key={index} className="listItem" id={item._id}>
                 <h4>{item.title}</h4>
                 <p>{item.body}</p>
                 <div className="btncont">
                   <button
                     className="updbtn"
                     onClick={() => {
-                      updateTaskEdit(index);
+                      updateTaskEdit(item._id);
                     }}
                   >
                     Update
@@ -148,7 +163,7 @@ const TodoHeader = () => {
                   <button
                     className="dltBtn"
                     onClick={() => {
-                      deleteTask(index);
+                      deleteTask(item._id);
                     }}
                   >
                     Delete
