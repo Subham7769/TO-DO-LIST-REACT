@@ -41,7 +41,7 @@ export function LoginForm() {
     }
     //http://localhost:8000
     await axios
-      .post("http://localhost:8000/api/v1/login", { email, password })
+      .post(`${window.location.origin}/api/v1/login`, { email, password })
       .then((response) => {
         console.log(response);
         console.log(response.data.others._id);

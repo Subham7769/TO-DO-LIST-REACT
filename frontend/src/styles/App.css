@@ -7,7 +7,9 @@
   --input-placeholder: gray;
   --card-bg-color: rgba(30, 143, 255, 0.212);
 }
-
+::-webkit-scrollbar {
+  display: none;
+}
 .light {
   --bg-color: white;
   --text-color: black;
@@ -17,7 +19,7 @@
 }
 
 .dark {
-  --bg-color: black;
+  --bg-color: #414141;
   --text-color: white;
   --primary-color: dodgerblue;
   --input-placeholder: white;

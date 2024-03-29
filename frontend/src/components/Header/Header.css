@@ -1,32 +1,36 @@
-.header{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem;
-    width: 100vw;
-    height:10vh;
+.header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  padding: 1rem;
+  width: 100vw;
+  height: 10vh;
+  z-index: 100;
+  background-color: var(--bg-color);
 }
-.logo,.itemContainer{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 50px;
-    gap: 2rem;
+.logo,
+.itemContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  gap: 2rem;
 }
-.itemContainer{
-    width: 100%;
-    display: flex;
-    justify-content: end;
-
+.itemContainer {
+  width: 100%;
+  display: flex;
+  justify-content: end;
 }
-.chipbtn{
-    padding: 0.1rem 0.9rem;
-    color: var(--text-color);
-    border: 1px solid var( --primary-color);
-    background-color: var(--bg-color);
-
-    border-radius: 1rem;
+.chipbtn {
+  padding: 0.1rem 0.9rem;
+  color: var(--text-color);
+  border: 1px solid var(--primary-color);
+  background-color: var(--bg-color);
+  border-radius: 1rem;
 }
-a{
-    text-decoration: none;
+a {
+  text-decoration: none;
 }

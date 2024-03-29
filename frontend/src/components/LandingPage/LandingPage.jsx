@@ -1,7 +1,7 @@
 import React from "react";
-import './LandingPage.css';
-import LoginSignupContainer from '../LoginSignup/LoginSignupContainer'
-import Header from '../Header/Header'
+import "./LandingPage.css";
+import LoginSignupContainer from "../LoginSignup/LoginSignupContainer";
+import Header from "../Header/Header";
 
 const LandingPage = () => {
   return (
@@ -9,15 +9,15 @@ const LandingPage = () => {
       <Header />
       <div className="landingPage">
         <div className="intro">
-            <p>TO DO</p>
-            <p>List</p>
+          <p>TO DO</p>
+          <p>List</p>
         </div>
         <div className="lsDiv">
           <LoginSignupContainer />
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default LandingPage
+export default LandingPage;

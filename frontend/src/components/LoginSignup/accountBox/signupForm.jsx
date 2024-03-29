@@ -1,15 +1,10 @@
-import  { useContext, useState } from "react";
-import {
-  BoldLink,
-  BoxContainer,
-  LineText,
-  SubmitButton,
-} from "./common";
+import { useContext, useState } from "react";
+import { BoldLink, BoxContainer, LineText, SubmitButton } from "./common";
 import { Marginer } from "../marginer";
-import { AccountContext } from './accountContext';
+import { AccountContext } from "./accountContext";
 import { TextField } from "@mui/material";
-import axios from "axios"
-import { toast} from 'react-toastify';
+import axios from "axios";
+import { toast } from "react-toastify";
 
 export function SignupForm() {
   const { switchToSignin } = useContext(AccountContext);
@@ -40,25 +35,29 @@ export function SignupForm() {
       return;
     }
     // console.log(username,email,password)
-    await axios.post("https://tqmdqr-8000.csb.app/api/v1/register",{username:username,email:email,password:password})
-    .then(response=>{
-      // console.log(response)
-      toast(response.data.message)
-      // Reset form
-      setUsername("");
-      setEmail("");
-      setPassword("");
-      setUserNameError(false);
-      setEmailError(false);
-      setPasswordError(false);
-    }
-    ).catch(error=>toast(error.response.data.message))
-
+    await axios
+      .post(`${window.location.origin}/api/v1/register`, {
+        username: username,
+        email: email,
+        password: password,
+      })
+      .then((response) => {
+        // console.log(response)
+        toast(response.data.message);
+        // Reset form
+        setUsername("");
+        setEmail("");
+        setPassword("");
+        setUserNameError(false);
+        setEmailError(false);
+        setPasswordError(false);
+      })
+      .catch((error) => toast(error.response.data.message));
   };
 
   return (
     <BoxContainer>
-      <form onSubmit={handleSubmit} >    
+      <form onSubmit={handleSubmit}>
         <TextField
           id="name"
           type="text"
@@ -71,7 +70,7 @@ export function SignupForm() {
           }}
           error={userNameError}
           helperText={userNameError ? "Username is required" : ""}
-          style={{ width: "100%",marginBottom:"0.5rem" }}
+          style={{ width: "100%", marginBottom: "0.5rem" }}
         />
         <TextField
           id="email"
@@ -85,7 +84,7 @@ export function SignupForm() {
           }}
           error={emailError}
           helperText={emailError ? "Email is required" : ""}
-          style={{ width: "100%",marginBottom:"0.5rem" }}
+          style={{ width: "100%", marginBottom: "0.5rem" }}
         />
         <TextField
           id="password"
@@ -99,12 +98,12 @@ export function SignupForm() {
           }}
           error={passwordError}
           helperText={passwordError ? "Password is required" : ""}
-          style={{ width: "100%",marginBottom:"0.5rem" }}
+          style={{ width: "100%", marginBottom: "0.5rem" }}
         />
-      <Marginer direction="vertical" margin={10} />
-      <SubmitButton type="submit">Signup</SubmitButton>
-      <Marginer direction="vertical" margin="5px" />
-        </form>
+        <Marginer direction="vertical" margin={10} />
+        <SubmitButton type="submit">Signup</SubmitButton>
+        <Marginer direction="vertical" margin="5px" />
+      </form>
       <LineText>
         Already have an account?{" "}
         <BoldLink onClick={switchToSignin} href="#">

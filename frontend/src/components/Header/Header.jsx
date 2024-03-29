@@ -32,22 +32,24 @@ const Header = () => {
             <div className="chipbtn">My Todo</div>
           </NavLink>
         )}
-        <Button>
+        <div>
           <SwitchButton />
-        </Button>
-        <Button>
-          {" "}
-          {isLogin && (
-            <PowerSettingsNewRoundedIcon
-              onClick={() => {
-                sessionStorage.clear("id");
-                dispatch(logout());
-                navigate("/");
-                toast("Logged out Successfully!");
-              }}
-            />
-          )}
-        </Button>
+        </div>
+        {isLogin && (
+          <div>
+            <Button>
+              {" "}
+              <PowerSettingsNewRoundedIcon
+                onClick={() => {
+                  sessionStorage.clear("id");
+                  dispatch(logout());
+                  navigate("/");
+                  toast("Logged out Successfully!");
+                }}
+              />
+            </Button>
+          </div>
+        )}
       </div>
       <ToastContainer autoClose={1000} />
     </div>
