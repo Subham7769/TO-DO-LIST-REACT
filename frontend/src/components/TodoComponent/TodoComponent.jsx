@@ -16,7 +16,6 @@ const TodoComponent = () => {
   });
 
   const handleSubmit = async (e) => {
-    console.log("===running");
     e.preventDefault();
     if (currentIndex === undefined) {
       if (list.title.trim() === "") {
@@ -25,7 +24,6 @@ const TodoComponent = () => {
       }
       if (list.body.trim() === "") {
         toast("Fields can't be empty.");
-
         return;
       } else {
         if (id) {
@@ -96,7 +94,6 @@ const TodoComponent = () => {
       await axios
         .get(`${window.location.origin}/api/v2/getTask/${id}`)
         .then((response) => {
-          console.log("====getlist", response);
           setTaskList(response.data.list);
         });
     };

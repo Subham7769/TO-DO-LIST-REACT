@@ -34,7 +34,6 @@ export function SignupForm() {
       setPasswordError(true);
       return;
     }
-    // console.log(username,email,password)
     await axios
       .post(`${window.location.origin}/api/v1/register`, {
         username: username,
@@ -42,7 +41,6 @@ export function SignupForm() {
         password: password,
       })
       .then((response) => {
-        // console.log(response)
         toast(response.data.message);
         // Reset form
         setUsername("");
@@ -106,9 +104,7 @@ export function SignupForm() {
       </form>
       <LineText>
         Already have an account?{" "}
-        <BoldLink onClick={switchToSignin} href="#">
-          Signin
-        </BoldLink>
+        <BoldLink onClick={switchToSignin}>Signin</BoldLink>
       </LineText>
     </BoxContainer>
   );

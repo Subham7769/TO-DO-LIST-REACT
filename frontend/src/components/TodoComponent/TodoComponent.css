@@ -38,11 +38,24 @@
   color: var(--text-color);
 }
 
+
 .inputText::placeholder {
   font-size: 1.5rem;
   font-weight: 600;
   color: var(--input-placeholder);
 }
+
+.heading {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    align-items: center;
+  }
+  
+  .TodoComponent {
+    text-align: center;
+  }
+
 
 .inputText:focus-visible {
   border-bottom: 1px solid var(--primary-color);
