@@ -16,7 +16,6 @@ const TodoComponent = () => {
   });
 
   const handleSubmit = async (e) => {
-    console.log("===running");
     e.preventDefault();
     if (currentIndex === undefined) {
       if (list.title.trim() === "") {
@@ -30,7 +29,7 @@ const TodoComponent = () => {
       } else {
         if (id) {
           await axios
-            .post("http://localhost:8000/api/v2/addTask", {
+            .post(`${window.location.origin}/api/v2/addTask`, {
               title: list.title,
               body: list.body,
               id,
@@ -46,12 +45,12 @@ const TodoComponent = () => {
       }
     } else {
       try {
-      const updateTasks = [...taskList];
-      const taskId = updateTasks[currentIndex]._id;
-      await axios.put(`http://localhost:8000/api/v2/updateTask/${taskId}`,{ title:list.title, body: list.body })
-      .then(response=>toast(response.data.message));
-      setList({ title: "", body: "" });
-      setIsUpdate(!isUpdate);
+        const updateTasks = [...taskList];
+        const taskId = updateTasks[currentIndex]._id;
+        await axios.put(`${window.location.origin}/api/v2/updateTask/${taskId}`, { title: list.title, body: list.body })
+        .then(response => toast(response.data.message));
+        setList({ title: "", body: "" });
+        setIsUpdate(!isUpdate);
       } catch (error) {
         toast.error("Task Update failed");
         console.log(error);
@@ -64,7 +63,7 @@ const TodoComponent = () => {
   function updateTaskEdit(index) {
     setList(({ title: taskList[index].title, body: taskList[index].body }));
     setCurrentIndex(index);
-    if(list.title === ""){
+    if (list.title === "") {
       setIsUpdate(!isUpdate);
     }
     toast.info("Task Edit");
@@ -72,7 +71,7 @@ const TodoComponent = () => {
 
   const deleteTask = async (itemId) => {
     await axios
-      .delete(`http://localhost:8000/api/v2/deleteTask/${itemId}`, {
+      .delete(`${window.location.origin}/api/v2/deleteTask/${itemId}`, {
         data: { id: id },
       })
       .then((response) => console.log("deleteTask===", response));
@@ -90,7 +89,7 @@ const TodoComponent = () => {
   useEffect(() => {
     const fetchData = async () => {
       await axios
-        .get(`http://localhost:8000/api/v2/getTask/${id}`)
+        .get(`${window.location.origin}/api/v2/getTask/${id}`)
         .then((response) => {
           console.log("====getlist", response);
           setTaskList(response.data.list);
@@ -133,36 +132,36 @@ const TodoComponent = () => {
             <button name="update" className="btn">
               Update Task
             </button>
-          )}  
+          )}
         </form>
       </div>
       <ul>
         {taskList.length === 0
           ? ""
           : taskList.map((item, index) => (
-              <li key={item._id} className="listItem" id={item._id}>
-                <h4>{item.title}</h4>
-                <p>{item.body}</p>
-                <div className="btncont">
-                  <button
-                    className="updbtn"
-                    onClick={() => {
-                      updateTaskEdit(index);
-                    }}
-                  >
-                    Update
-                  </button>
-                  <button
-                    className="dltBtn"
-                    onClick={() => {
-                      deleteTask(item._id);
-                    }}
-                  >
-                    Delete
-                  </button>
-                </div>
-              </li>
-            ))}
+            <li key={item._id} className="listItem" id={item._id}>
+              <h4>{item.title}</h4>
+              <p>{item.body}</p>
+              <div className="btncont">
+                <button
+                  className="updbtn"
+                  onClick={() => {
+                    updateTaskEdit(index);
+                  }}
+                >
+                  Update
+                </button>
+                <button
+                  className="dltBtn"
+                  onClick={() => {
+                    deleteTask(item._id);
+                  }}
+                >
+                  Delete
+                </button>
+              </div>
+            </li>
+          ))}
       </ul>
     </>
   );
