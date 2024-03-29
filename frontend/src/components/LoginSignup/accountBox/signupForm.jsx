@@ -40,7 +40,7 @@ export function SignupForm() {
       return;
     }
     // console.log(username,email,password)
-    await axios.post("https://tqmdqr-8000.csb.app/api/v1/register",{username:username,email:email,password:password})
+    await axios.post("http://localhost:8000/api/v1/register",{username:username,email:email,password:password})
     .then(response=>{
       // console.log(response)
       toast(response.data.message)

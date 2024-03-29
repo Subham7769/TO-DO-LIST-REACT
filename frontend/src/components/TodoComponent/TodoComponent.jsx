@@ -4,7 +4,7 @@ import "./TodoComponent.css";
 import { toast } from "react-toastify";
 import axios from "axios";
 
-const TodoHeader = () => {
+const TodoComponent = () => {
   const id = sessionStorage.getItem("id");
   const [currentIndex, setCurrentIndex] = useState();
   const [taskList, setTaskList] = useState([]);
@@ -30,60 +30,52 @@ const TodoHeader = () => {
       } else {
         if (id) {
           await axios
-            .post("https://tqmdqr-8000.csb.app/api/v2/addTask", {
+            .post("http://localhost:8000/api/v2/addTask", {
               title: list.title,
               body: list.body,
               id,
             })
             .then((response) => console.log(response));
-          setList(() => {
-            return { title: "", body: "" };
-          });
+          setList({ title: "", body: "" });
           toast("Task Added Successfully");
         } else {
-          setTaskList((taskList) => [...taskList, list]);
-          console.log(taskList);
-          setList(() => {
-            return { title: "", body: "" };
-          });
+          setTaskList((prevTaskList) => [...prevTaskList, list]);
+          setList({ title: "", body: "" });
           toast("Task Added Successfully");
         }
       }
     } else {
+      try {
       const updateTasks = [...taskList];
-      updateTasks[currentIndex] = { ...updateTasks[currentIndex], ...list };
-      setList(() => {
-        return { title: "", body: "" };
-      });
-      setTaskList(updateTasks);
+      const taskId = updateTasks[currentIndex]._id;
+      await axios.put(`http://localhost:8000/api/v2/updateTask/${taskId}`,{ title:list.title, body: list.body })
+      .then(response=>toast(response.data.message));
+      setList({ title: "", body: "" });
       setIsUpdate(!isUpdate);
-      toast("Task updated Successfully");
+      } catch (error) {
+        toast.error("Task Update failed");
+        console.log(error);
+      }
     }
     setCurrentIndex();
     setListUpdate(!listUpdate);
   };
 
   function updateTaskEdit(index) {
-    setList(() => {
-      return { title: taskList[index].title, body: taskList[index].body };
-    });
+    setList(({ title: taskList[index].title, body: taskList[index].body }));
     setCurrentIndex(index);
-    setIsUpdate(!isUpdate);
-    toast("Task Edit");
+    if(list.title === ""){
+      setIsUpdate(!isUpdate);
+    }
+    toast.info("Task Edit");
   }
 
-  const deleteTask = async (id) => {
-    console.log("before");
+  const deleteTask = async (itemId) => {
     await axios
-      .delete(`https://tqmdqr-8000.csb.app/api/v2/deleteTask/${id}`, {
+      .delete(`http://localhost:8000/api/v2/deleteTask/${itemId}`, {
         data: { id: id },
       })
       .then((response) => console.log("deleteTask===", response));
-    // const updateTasks = [...taskList];
-    // updateTasks.splice(index, 1);
-    // setTaskList(updateTasks);
-    console.log("after");
-
     toast("Task Deleted Successfully");
     setListUpdate(!listUpdate);
   };
@@ -98,9 +90,9 @@ const TodoHeader = () => {
   useEffect(() => {
     const fetchData = async () => {
       await axios
-        .get(`https://tqmdqr-8000.csb.app/api/v2/getTask/${id}`)
+        .get(`http://localhost:8000/api/v2/getTask/${id}`)
         .then((response) => {
-          console.log("====response", response);
+          console.log("====getlist", response);
           setTaskList(response.data.list);
         });
     };
@@ -109,7 +101,7 @@ const TodoHeader = () => {
   return (
     <>
       <Header />
-      <div className="todoHeader">
+      <div className="todoComponent">
         <div className="heading">
           <div class="content">
             <h1>To-Do List</h1>
@@ -141,21 +133,21 @@ const TodoHeader = () => {
             <button name="update" className="btn">
               Update Task
             </button>
-          )}
+          )}  
         </form>
       </div>
       <ul>
         {taskList.length === 0
           ? ""
           : taskList.map((item, index) => (
-              <li key={index} className="listItem" id={item._id}>
+              <li key={item._id} className="listItem" id={item._id}>
                 <h4>{item.title}</h4>
                 <p>{item.body}</p>
                 <div className="btncont">
                   <button
                     className="updbtn"
                     onClick={() => {
-                      updateTaskEdit(item._id);
+                      updateTaskEdit(index);
                     }}
                   >
                     Update
@@ -176,4 +168,4 @@ const TodoHeader = () => {
   );
 };
 
-export default TodoHeader;
+export default TodoComponent;
